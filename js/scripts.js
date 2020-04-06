@@ -1,12 +1,13 @@
 // Business Logic for List -------
-var list = {
-  toDos: [],
-  currentId: 0,
+function List() {
+  this.toDos = [],
+  this.currentId = 0
 }
 
  List.prototype.addToDo = function(toDo) {
    toDo.id = this.assignId();
-   this.toDos.Push(toDo)
+   this.toDos.push(toDo);
+   console.log(toDo)
  }
  List.prototype.assignId = function(){
    this.currentId += 1;
@@ -15,12 +16,12 @@ var list = {
  List.prototype.deleteToDo = function(id){
    for (var i=0; i<this.toDos.length; i++){
      if (this.toDos[i]){
-       if (this.toDos[i.id === id]) {
+       if (this.toDos[i].id === id) {
          delete this.toDos[i];
          return true; 
        }
      }
-   }
+   };
    return false;
  }
 
@@ -32,6 +33,7 @@ function ToDo(project, status){
 }
 
 // User Interface Logic -------
+var list = new List(); 
 $(document).ready(function(){
   $("form#to-do-list").submit(function(event){
     event.preventDefault();
@@ -39,9 +41,16 @@ $(document).ready(function(){
     var projectInput = $("input#project").val();
     var statusInput = "incomplete";
     var project = new ToDo(projectInput, statusInput);
-    debugger;
     list.addToDo(project);
-    console.log(List.toDos);
+    
+    $("ul#result").append("<li>" + projectInput + "</li>");
+    function myFunction() {
+      var x = document.createElement("INPUT");
+      x.setAttribute("type", "checkbox");
+      document.body.appendChild(x);
+    }
   });
+
+
 });
 
